@@ -1,7 +1,12 @@
-from src.models.ingredient import Ingredient, Restriction
+from src.models.ingredient import (
+    Ingredient,
+    Restriction,
+)  # noqa: F401, E261, E501
 
 
-def test_ingredient_initialization():
+# Req 1 - init
+def test_ingredient():
+    pass
     salmao_ingredient = Ingredient("salmão")
     farinha_ingredient = Ingredient("farinha")
     manteiga_ingredient = Ingredient("manteiga")
@@ -24,39 +29,18 @@ def test_ingredient_initialization():
     assert farinha_ingredient.restrictions == {Restriction.GLUTEN}
     assert tomate_ingredient.restrictions == set()
 
-
-def test_ingredient_hashes():
-    salmao_ingredient = Ingredient("salmão")
-    farinha_ingredient = Ingredient("farinha")
-    manteiga_ingredient = Ingredient("manteiga")
-
     assert hash(salmao_ingredient) == hash("salmão")
     assert hash(farinha_ingredient) == hash("farinha")
     assert hash(manteiga_ingredient) == hash("manteiga")
+    assert hash(tomate_ingredient) == hash("tomate")
 
-    # Test if different ingredients have different hashes
     assert hash(manteiga_ingredient) != hash(salmao_ingredient)
-    # Test if the same ingredient has the same hash
     assert hash(farinha_ingredient) == hash(Ingredient("farinha"))
 
-
-def test_ingredient_equality():
-    salmao_ingredient = Ingredient("salmão")
-    farinha_ingredient = Ingredient("farinha")
-    manteiga_ingredient = Ingredient("manteiga")
-    tomate_ingredient = Ingredient("tomate")
-
-    assert salmao_ingredient == salmao_ingredient
-    assert manteiga_ingredient == Ingredient("manteiga")
-    assert salmao_ingredient != farinha_ingredient
-    assert tomate_ingredient != farinha_ingredient
-
-
-def test_ingredient_repr():
-    salmao_ingredient = Ingredient("salmão")
-    farinha_ingredient = Ingredient("farinha")
-    manteiga_ingredient = Ingredient("manteiga")
-    tomate_ingredient = Ingredient("tomate")
+    assert (salmao_ingredient == farinha_ingredient) is False
+    assert (manteiga_ingredient == Ingredient("manteiga")) is True
+    assert (salmao_ingredient == salmao_ingredient) is True
+    assert (tomate_ingredient != farinha_ingredient) is True
 
     assert repr(salmao_ingredient) == "Ingredient('salmão')"
     assert repr(farinha_ingredient) == "Ingredient('farinha')"

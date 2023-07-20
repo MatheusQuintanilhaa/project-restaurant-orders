@@ -40,5 +40,3 @@ class MenuBuilder:
                 main_menu.append(menu_item)
 
         return main_menu
-
-"""test"""
